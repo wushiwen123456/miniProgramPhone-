@@ -30,8 +30,9 @@
 		},
 		onLoad(option) {
 			
-			this.$store.commit('platform')
-			const i = this.$store.state.platform
+			// 判断手机型号
+			// this.$store.commit('platform')
+			// const i = this.$store.state.platform
 			this.$store.commit('stop')
 				
 			
@@ -48,13 +49,7 @@
 			}else{
 				this.$store.commit('randomNum')
 			}
-			this.number = this.$store.state.num
-			
-
-			this.$store.commit('play',{
-				url:'/static/27.mp3',
-				loop:true	
-			})		
+			this.number = this.$store.state.num		
 			
 			clearTimeout(this.time)
 			this.time = setTimeout(() => {
@@ -62,9 +57,27 @@
 			},9000)
 			
 		},
-		
 		onShow() {
+			if(!this.$store.state.bgAudio.paused){
+				this.$store.state.bgAudio.pause()
+			}
+			if(this.$store.state.isRandom){
+				this.$store.commit('randomNum')
+			}
+			if(this.$store.state.audioCtx.paused){
+				this.$store.commit('play',{
+					url:'/static/27.mp3',
+					loop:true	
+				})
+			}
 			
+			
+			// 测试部分
+			this.$store.commit('setNum',6)
+			this.number = 6
+		},
+		onHide(){
+			this.$store.commit('stop')
 		},
 		methods: {
 			openClick(){
@@ -89,10 +102,6 @@
 				// 使手机振动15ms
 				wx.vibrateShort()
 			}
-		},
-		onUnload() {
-			this.$store.commit('stop')
-			uni.clearStorage()
 		}
 		
 	}

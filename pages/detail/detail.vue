@@ -2,7 +2,7 @@
 <template>
 	<view class="contain">
 		<image :src="imgUrl" class="bgImg" mode="scaleToFill"></image>
-		<view class="logo"></view>
+		<view class="logo" @click="back"></view>
 		<!-- #ifdef MP-WEIXIN -->
 			<view class="concern">
 				<official-account></official-account> 
@@ -24,26 +24,36 @@ import {getDetailData} from '@/network/detail'
 			}
 		},
 		onLoad(){
+			
 			this.num = this.$store.state.num
 			// 获取网络url
 			this.getDetailData(this.num)
+
 			// 图片加载
 			this.imgUrl = `https://xcxys.17yunyin.com//public/uploads/${this.num}.gif`
 		},
-		onUnload() {
-			this.$store.commit('stop')
-			uni.clearStorage()
+		onShow() {
+			if(this.$store.state.isPlayApp && this.$store.state.bgAudio.paused){
+				this.$store.state.bgAudio.play()
+			}
 		},
 		methods:{
 			getDetailData(num){
 				getDetailData(num).then(res => {
 					this.$store.commit('playApp',{
 						url:res.data.data.yyurl,
-					}).then(res => {
-						console.log('-----')
 					})
 				})
-			}	
+				
+				// 播放结束后从新加载
+				this.$store.state.bgAudio.onEnded(() =>{
+					this.$store.state.bgAudio.onPause()
+					this.getDetailData(this.num)
+				})
+			},
+			back(){
+				uni.navigateBack()
+			}
 		},
 		computed:{
 			height(){

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from '@/store'
+import page from '@/common/getPage'
 
 Vue.config.productionTip = false
 

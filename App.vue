@@ -3,8 +3,16 @@
 	
 	export default {
 		onHide(){
-			this.$store.state.audioCtx.destroy()
-		}	
+			const mp3 = this.$store.state.audioCtx,
+			bgMp3 = this.$store.state.bgAudio
+			if(!mp3.paused){
+				mp3.pause()
+			}
+			if(!bgMp3.paused){
+				bgMp3.pause()
+			}
+
+		}
 	}
 </script>
 

@@ -9,9 +9,11 @@ const store = new Vuex.Store({
 		num:'',
 		bgAudio:uni.getBackgroundAudioManager(),
 		platform:'',//手机型号
+		isRandom:false,
+		isPlayApp:false
 	},
 	mutations:{
-		// 安卓用户开关
+
 		play(state,payload){
 			state.audioCtx.stop()
 			state.audioCtx.src = payload.url
@@ -22,21 +24,21 @@ const store = new Vuex.Store({
 			state.audioCtx.stop()
 		},
 		
-		// 苹果用户开关
+
 		playApp(state,payload){
 			state.bgAudio.title = '茶海棠'
 			state.bgAudio.src = payload.url
 			state.bgAudio.play()
-			return new Promise((resolve,reject) => {
-				state.bgAudio.onEnded(resolve())
-			})
-			
+			state.isPlayApp = true
 		},
 		stopApp(state){
-			state.bgAudio.src = ''
 			state.bgAudio.stop()
 		},
-		
+		paushApp(state,payload){
+			state.bgAudio.pause()
+			state.bgAudio.src = payload.url
+			state.bgAudio.play()
+		},
 		// 设置变量
 		setNum(state,num){
 			console.log(num)
@@ -44,8 +46,8 @@ const store = new Vuex.Store({
 		},
 		//随机变量
 		randomNum(state){
-
-			state.num = parseInt(Math.random()*6+1)
+			state.num = parseInt(Math.random()*5+1)
+			state.isRandom = true
 			console.log(state.num)
 		},
 		// 设置型号

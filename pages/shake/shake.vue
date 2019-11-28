@@ -1,5 +1,5 @@
 <template>
-	<view class="box" v-if="imgUrlData" :style="{height:height}">
+	<view class="box" :style="{height:height}">
 		<view class="box1" v-if="!isShakeImg">		
 				<image src="../../static/23374ce61ee3503f51a364abe9f3ad16.gif" mode="aspectFit" class="img1"></image>
 			<!-- <view class="title">
@@ -13,8 +13,8 @@
 				<span>签</span>
 			</view> -->
 		</view>
-		<view v-else :style="{height:height}" class="else-contain">
-			<image :src="imgUrlData.pic" mode="aspectFit" class="de-qian" v-show="!!imgUrlData" @load="imgload"></image>
+		<view v-else :style="{height:height}" class="else-contain" v-if="Object.keys(this.imgUrlData).length">
+			<image :src="imgUrlData.pic" mode="aspectFit" class="de-qian"></image>
 			<!-- 2.2字不要了 -->
 <!-- 			<view class="qian_text" v-if="!!Object.keys(imgUrlData).length">
 				<text class="text_main">{{imgUrlData.content}}</text>
@@ -29,8 +29,9 @@
 </template>
 
 <script>
+	import {getDetailData} from '@/network/detail';
+
 	
-	import {getDetailData} from '@/network/detail'
 	export default {
 		data() {
 			return {
@@ -46,31 +47,48 @@
 				isShakeImg:false,
 				yaoSrc:'https://xcxys.17yunyin.com//public/uploads/shark.mp3',
 				timer:'',
-				imgUrlData:"",
+				imgUrlData:{},
 				num:''
 			};
 		},
+		
+		// 用户分享
+		onShareAppMessage(res) {
+			return {
+				title:'茶海棠',
+				path:`/pages/index/index`
+			}
+		},
+		
 		onLoad() {
-				this.num = this.$store.state.num
-				// 发送请求
-				this.getDetailData(this.num)
+				this.num = this.$store.state.num			
+				
+				// 监听摇一摇事件
+				uni.onAccelerometerChange(this.starshake);
+		},
+		onShow() {
+			if(!this.$store.state.audioCtx.paused){
+				this.$store.state.audioCtx.pause()
+			}
+			if(this.$store.state.isPlayApp && this.$store.state.bgAudio.paused && this.isShakeImg){
+				this.$store.state.bgAudio.play()
+			}
 		},
 		computed:{
 			height(){
 				return uni.getSystemInfoSync().windowHeight + 'px';
 			}
 		},
-		onUnload() {
-			this.$store.commit('stop')
-			uni.clearStorage()
-		},
+		
 		methods:{
 			// 发送请求
 			getDetailData(num){
 				getDetailData(num).then(res => {
+					this.isShakeImg = true
 					this.imgUrlData = res.data.data
-					// 监听摇一摇事件
-					uni.onAccelerometerChange(this.starshake);
+					this.$store.commit('playApp',{
+						url:this.imgUrlData.yyurl
+					})
 				})
 			},
 			
@@ -99,32 +117,17 @@
 					//如果计算出来的速度超过了阈值，那么就算作用户成功摇一摇
 					if (speed > this.global.shakeSpeed) {
 						uni.stopAccelerometer()
-						const bgMp3 = uni.createInnerAudioContext()
-						bgMp3.src = this.yaoSrc
-						bgMp3.onEnded(() => {
-							bgMp3.destroy()
+						this.$store.commit('play',{
+							url:this.yaoSrc,
+							loop:false
 						})
-						uni.showLoading({
-							mask:true,
-							title:''
-						})
-						clearTimeout(this.timer)
-						this.timer = setTimeout(() => {
-							this.isShakeImg = true
-							uni.hideLoading()
-						},1500)
+						this.getDetailData(this.num)
 					}
 					//赋值，为下一次计算做准备
 					this.global.lastX = x;
 					this.global.lastY = y;
 					this.global.lastZ = z;
 				}
-			},
-			imgload(){
-				this.$store.commit('play',{
-					url:this.imgUrlData.yyurl,
-					loop:true
-				})
 			}
 		},
 	}
@@ -157,6 +160,7 @@
 	.img1{
 		width: 100%;
 		height: 100%;
+		background-color: rgba(238,238,238,1);
 	}
 	.concern{
 		position: fixed;
