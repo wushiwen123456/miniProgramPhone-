@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/shake/shake"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "茶海棠",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#e7e7ee",
+    "navigationStyle": "custom"
+  },
+  "permission": {},
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

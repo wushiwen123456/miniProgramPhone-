@@ -1,0 +1,1 @@
+export const bgUrl = '/static/11000.mp3'
