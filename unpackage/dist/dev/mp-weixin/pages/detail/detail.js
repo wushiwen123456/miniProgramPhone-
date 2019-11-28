@@ -149,7 +149,14 @@ var _detail = __webpack_require__(/*! @/network/detail */ 32); //
 //
 //
 //
-var _default = { data: function data() {return { option: { mp3Src: '' }, num: '', imgUrl: "" };}, onLoad: function onLoad() {this.num = this.$store.state.num;
+var _default = { data: function data() {return { option: { mp3Src: '' }, num: '', imgUrl: "" };}, // 用户分享
+  onShareAppMessage: function onShareAppMessage(res) {return { title: '茶海棠',
+      path: "/pages/index/index" };
+
+  },
+  onLoad: function onLoad() {
+
+    this.num = this.$store.state.num;
     // 获取网络url
     this.getDetailData(this.num);
 

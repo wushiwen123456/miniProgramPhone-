@@ -23,6 +23,13 @@ import {getDetailData} from '@/network/detail'
 				imgUrl:``
 			}
 		},
+		// 用户分享
+		onShareAppMessage(res) {
+			return {
+				title:'茶海棠',
+				path:`/pages/index/index`
+			}
+		},
 		onLoad(){
 			
 			this.num = this.$store.state.num

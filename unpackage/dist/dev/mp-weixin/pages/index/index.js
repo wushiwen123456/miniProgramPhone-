@@ -152,6 +152,13 @@ var _default =
       time: '' };
 
   },
+  // 用户分享
+  onShareAppMessage: function onShareAppMessage(res) {
+    return {
+      title: '茶海棠',
+      path: "/pages/index/index" };
+
+  },
   onLoad: function onLoad(option) {var _this = this;
 
     // 判断手机型号
@@ -159,9 +166,6 @@ var _default =
     // const i = this.$store.state.platform
     this.$store.commit('stop');
 
-
-    // // 测试
-    // option.num = 6
 
     // 使手机振动15ms
     wx.vibrateShort();
@@ -197,8 +201,8 @@ var _default =
 
 
     // 测试部分
-    this.$store.commit('setNum', 6);
-    this.number = 6;
+    // this.$store.commit('setNum',6)
+    // this.number = 6
   },
   onHide: function onHide() {
     this.$store.commit('stop');

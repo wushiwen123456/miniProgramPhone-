@@ -28,16 +28,20 @@
 				time:''
 			}
 		},
+		// 用户分享
+		onShareAppMessage(res) {
+			return {
+				title:'茶海棠',
+				path:`/pages/index/index`
+			}
+		},
 		onLoad(option) {
 			
 			// 判断手机型号
 			// this.$store.commit('platform')
 			// const i = this.$store.state.platform
 			this.$store.commit('stop')
-				
-			
-			// // 测试
-			// option.num = 6
+
 			
 			// 使手机振动15ms
 			wx.vibrateShort()
@@ -73,8 +77,8 @@
 			
 			
 			// 测试部分
-			this.$store.commit('setNum',6)
-			this.number = 6
+			// this.$store.commit('setNum',6)
+			// this.number = 6
 		},
 		onHide(){
 			this.$store.commit('stop')
