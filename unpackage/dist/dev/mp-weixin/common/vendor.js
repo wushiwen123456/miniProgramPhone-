@@ -734,7 +734,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -6990,7 +6990,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7011,14 +7011,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7094,7 +7094,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7501,9 +7501,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!******************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/pages.json ***!
-  \******************************************************/
+/*!*******************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/pages.json ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8408,20 +8408,20 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 
 /***/ }),
 /* 7 */
-/*!***********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/pages.json?{"type":"style"} ***!
-  \***********************************************************************/
+/*!************************************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/pages.json?{"type":"style"} ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "茶海棠", "navigationStyle": "custom", "navigationBarTextStyle": "white" }, "pages/detail/detail": {}, "pages/shake/shake": { "backgroundColor": "#e7e7ee" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "茶海棠", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#e7e7ee", "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "茶海棠", "navigationStyle": "custom", "navigationBarTextStyle": "white" }, "pages/detail/detail": {}, "pages/shake/shake": { "backgroundColor": "#e7e7ee" }, "pages/shake/showQian": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "茶海棠", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#e7e7ee", "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
-/*!**********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/pages.json?{"type":"stat"} ***!
-  \**********************************************************************/
+/*!***********************************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/pages.json?{"type":"stat"} ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8541,9 +8541,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 15 */
-/*!**********************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/store/index.js ***!
-  \**********************************************************/
+/*!***********************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/store/index.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8560,7 +8560,8 @@ var store = new _vuex.default.Store({
     bgAudio: uni.getBackgroundAudioManager(),
     platform: '', //手机型号
     isRandom: false,
-    isPlayApp: false },
+    isPlayApp: false,
+    isYaoApp: false },
 
   mutations: {
 
@@ -8579,7 +8580,12 @@ var store = new _vuex.default.Store({
       state.bgAudio.title = '茶海棠';
       state.bgAudio.src = payload.url;
       state.bgAudio.play();
-      state.isPlayApp = true;
+
+      if (state.num != 6) {
+        state.isPlayApp = true;
+      } else {
+        state.isYaoApp = true;
+      }
     },
     stopApp: function stopApp(state) {
       state.bgAudio.stop();
@@ -8596,7 +8602,7 @@ var store = new _vuex.default.Store({
     },
     //随机变量
     randomNum: function randomNum(state) {
-      state.num = parseInt(Math.random() * 6 + 1);
+      state.num = parseInt(Math.random() * 7 + 1);
       state.isRandom = true;
       console.log(state.num);
     },
@@ -9579,9 +9585,9 @@ var index_esm = {
 
 /***/ }),
 /* 17 */
-/*!*************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/common/getPage.js ***!
-  \*************************************************************/
+/*!**************************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/common/getPage.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9604,9 +9610,9 @@ var index_esm = {
 /* 30 */,
 /* 31 */,
 /* 32 */
-/*!*************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/network/detail.js ***!
-  \*************************************************************/
+/*!**************************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/network/detail.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9625,9 +9631,9 @@ function getDetailData(cate) {
 
 /***/ }),
 /* 33 */
-/*!**********************************************************!*\
-  !*** C:/Users/Administrator/Desktop/摇签__/network/req.js ***!
-  \**********************************************************/
+/*!***********************************************!*\
+  !*** F:/茶海棠/miniProgramPhone-/network/req.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

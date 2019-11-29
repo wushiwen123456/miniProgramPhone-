@@ -10,7 +10,8 @@ const store = new Vuex.Store({
 		bgAudio:uni.getBackgroundAudioManager(),
 		platform:'',//手机型号
 		isRandom:false,
-		isPlayApp:false
+		isPlayApp:false,
+		isYaoApp:false
 	},
 	mutations:{
 
@@ -29,7 +30,12 @@ const store = new Vuex.Store({
 			state.bgAudio.title = '茶海棠'
 			state.bgAudio.src = payload.url
 			state.bgAudio.play()
-			state.isPlayApp = true
+			
+			if(state.num != 6){
+				state.isPlayApp = true
+			}else{
+				state.isYaoApp = true
+			}
 		},
 		stopApp(state){
 			state.bgAudio.stop()
@@ -46,7 +52,7 @@ const store = new Vuex.Store({
 		},
 		//随机变量
 		randomNum(state){
-			state.num = parseInt(Math.random()*6+1)
+			state.num = parseInt(Math.random()*7+1)
 			state.isRandom = true
 			console.log(state.num)
 		},

@@ -1,1 +1,1 @@
-<view class="contain data-v-414bcd62"><image class="bgImg data-v-414bcd62" src="{{imgUrl}}" mode="scaleToFill"></image><view data-event-opts="{{[['tap',[['back',['$event']]]]]}}" class="logo data-v-414bcd62" bindtap="__e"></view><view class="concern data-v-414bcd62"><official-account class="data-v-414bcd62"></official-account></view></view>
+<view class="contain data-v-27d74124"><image class="bgImg data-v-27d74124" src="{{imgUrl}}" mode="scaleToFill"></image><view class="concern data-v-27d74124"><official-account class="data-v-27d74124"></official-account></view></view>

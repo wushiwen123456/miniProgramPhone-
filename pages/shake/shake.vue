@@ -1,6 +1,6 @@
 <template>
 	<view class="box" :style="{height:height}">
-		<view  v-if="!isShakeImg" class="box1">		
+		<view  class="box1">		
 				<image src="../../static/23374ce61ee3503f51a364abe9f3ad16.gif" mode="aspectFit" class="img1"></image>
 			<!-- <view class="title">
 				<span>请</span>
@@ -13,24 +13,12 @@
 				<span>签</span>
 			</view> -->
 		</view>
-		<view v-if="isShakeImg" :style="{height:height}" class="else-contain">
-			<image :src="imgUrlData.pic" mode="aspectFit" @load="imgload" class="de-qian"></image>
-			<!-- <text>{{isShakeImg}}</text> -->
-			<!-- 2.2字不要了 -->
-<!-- 			<view class="qian_text" v-if="!!Object.keys(imgUrlData).length">
-				<text class="text_main">{{imgUrlData.content}}</text>
-			</view> -->
-			<!-- #ifdef MP-WEIXIN -->
-				<view class="concern">
-					<official-account></official-account> 
-				</view>
-			<!-- #endif -->
-		</view>
+		
 	</view>
 </template>
 
 <script>
-	import {getDetailData} from '@/network/detail';
+
 
 	
 	export default {
@@ -45,10 +33,9 @@
 					lastZ: 0, //此组变量分别记录对应x、y、z三轴的数值和上次的数值
 					shakeSpeed: 100 //设置阈值
 				},
-				isShakeImg:false,
 				yaoSrc:'https://xcxys.17yunyin.com//public/uploads/shark.mp3',
 				timer:'',
-				imgUrlData:{},
+				// imgUrlData:{},
 				num:''
 			};
 		},
@@ -61,9 +48,7 @@
 			}
 		},
 		
-		onLoad() {
-				this.num = this.$store.state.num			
-				console.log('-----')
+		onLoad() {			
 				// 监听摇一摇事件
 				uni.onAccelerometerChange(this.starshake);
 		},
@@ -72,13 +57,21 @@
 			if(!this.$store.state.audioCtx.paused){
 				this.$store.state.audioCtx.pause()
 			}
-			if(!this.isShakeImg){
-				this.$store.state.audioCtx.pause()
+			// if(!this.isShakeImg){
+			// 	this.$store.state.audioCtx.pause()
+			// }
+			// if(this.$store.state.isPlayYao && this.isShakeImg){
+			// 	this.$store.state.audioCtx.pause()
+			// 	uni.navigateTo({
+			// 		url:'../index/index'
+			// 	})
+			// }
+			if(this.$store.state.isYaoApp){
+				this.$store.state.bgAudio.pause()
+				// 监听摇一摇事件
+				uni.onAccelerometerChange(this.starshake);
 			}
-			if(this.$store.state.isPlayApp && this.$store.state.bgAudio.paused && this.isShakeImg){
-				this.$store.state.bgAudio.play()
-			}
-			
+
 		},
 		computed:{
 			height(){
@@ -87,17 +80,7 @@
 		},
 		
 		methods:{
-			// 发送请求
-			getDetailData(num){
-				getDetailData(num).then(res => {
-					
-					this.imgUrlData = res.data.data
-					this.$store.commit('playApp',{
-						url:this.imgUrlData.yyurl
-					})
-					this.$store.state.isPlayApp = true
-				})
-			},
+			
 			
 			// 监听摇一摇事件
 			imgload(){
@@ -128,13 +111,17 @@
 						10000;
 					//如果计算出来的速度超过了阈值，那么就算作用户成功摇一摇
 					if (speed > this.global.shakeSpeed) {
-						this.isShakeImg = true
+						// this.isShakeImg = true
 						uni.stopAccelerometer()
 						this.$store.commit('play',{
 							url:this.yaoSrc,
 							loop:false
 						})
-						this.getDetailData(this.num)
+						uni.navigateTo({
+							url:"showQian"
+						})
+						return 
+						// this.getDetailData(this.num)
 					}
 					//赋值，为下一次计算做准备
 					this.global.lastX = x;
@@ -175,14 +162,7 @@
 		height: 100%;
 		background-color: rgba(238,238,238,1);
 	}
-	.concern{
-		position: fixed;
-		bottom:88upx;
-		left: 0;
-		right: 0;
-		height: 100upx;
-		background-color:transition;
-	}
+	
 	// @keyframes move{
 	// 	0%{ transform:translateX(0) }
 	// 	50%{ transform: translateX(100%)}
@@ -230,16 +210,7 @@
 	// 		opacity: 1;
 	//     }
 	// }
-	.else-contain{
-		width: 100%;
-		padding: 80upx;
-		box-sizing: border-box;
-		display: flex;
-		justify-content:center;
-		align-items: center;
-		overflow: hidden;
-		position: relative;
-	}
+	
 	// .qian_text{
 	// 	font-size: 32upx;
 	// 	color: #404040;
@@ -271,8 +242,5 @@
 	// .text_main{
 	// 	font-size: 32upx;
 	// }
-	.de-qian{
-		height: 90%;
-		width: 100%;
-	}
+	
 </style>

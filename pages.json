@@ -18,6 +18,10 @@
 				"backgroundColor":"#e7e7ee"
 			}
         }
+        ,{
+            "path" : "pages/shake/showQian",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

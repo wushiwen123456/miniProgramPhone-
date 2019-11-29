@@ -2,7 +2,7 @@
 <template>
 	<view class="contain">
 		<image :src="imgUrl" class="bgImg" mode="scaleToFill"></image>
-		<view class="logo" @click="back"></view>
+		<!-- <view class="logo" @click="back"></view> -->
 		<!-- #ifdef MP-WEIXIN -->
 			<view class="concern">
 				<official-account></official-account> 

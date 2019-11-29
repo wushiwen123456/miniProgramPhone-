@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/detail/detail",
-    "pages/shake/shake"
+    "pages/shake/shake",
+    "pages/shake/showQian"
   ],
   "subPackages": [],
   "window": {
@@ -14,5 +15,5 @@
   },
   "permission": {},
   "usingComponents": {},
-  "sitemapLocation": "sitemap36.json"
+  "sitemapLocation": "sitemap47.json"
 }

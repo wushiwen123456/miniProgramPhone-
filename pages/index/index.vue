@@ -67,6 +67,7 @@
 			}
 			if(this.$store.state.isRandom){
 				this.$store.commit('randomNum')
+				this.number = this.$store.state.num
 			}
 			if(this.$store.state.audioCtx.paused){
 				this.$store.commit('play',{
@@ -93,7 +94,7 @@
 					})
 				}
 				else{
-					uni.reLaunch({
+					uni.navigateTo({
 						url:"../shake/shake",
 					})
 				}

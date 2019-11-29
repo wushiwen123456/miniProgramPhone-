@@ -1,0 +1,1 @@
+<view><view class="else-contain" style="{{'height:'+(height)+';'}}"><image class="de-qian" src="{{imgUrlData.pic}}" mode="aspectFit" data-event-opts="{{[['load',[['imgload',['$event']]]]]}}" bindload="__e"></image><view class="concern"><official-account></official-account></view></view></view>
