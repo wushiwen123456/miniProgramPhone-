@@ -87,13 +87,13 @@
 			openClick(){
 				clearTimeout(this.time)
 				this.$store.commit('stop')
-				if(this.number <= 5){
+				if(this.number != 6){
 					uni.navigateTo({
 						url:"../detail/detail",
 					})
 				}
 				else{
-					uni.navigateTo({
+					uni.reLaunch({
 						url:"../shake/shake",
 					})
 				}

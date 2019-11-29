@@ -13,5 +13,6 @@
     "navigationStyle": "custom"
   },
   "permission": {},
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap36.json"
 }

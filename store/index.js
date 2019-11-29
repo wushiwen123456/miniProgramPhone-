@@ -46,7 +46,7 @@ const store = new Vuex.Store({
 		},
 		//随机变量
 		randomNum(state){
-			state.num = parseInt(Math.random()*5+1)
+			state.num = parseInt(Math.random()*6+1)
 			state.isRandom = true
 			console.log(state.num)
 		},

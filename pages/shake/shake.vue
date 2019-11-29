@@ -1,6 +1,6 @@
 <template>
 	<view class="box" :style="{height:height}">
-		<view class="box1" v-if="!isShakeImg">		
+		<view  v-if="!isShakeImg" class="box1">		
 				<image src="../../static/23374ce61ee3503f51a364abe9f3ad16.gif" mode="aspectFit" class="img1"></image>
 			<!-- <view class="title">
 				<span>请</span>
@@ -13,8 +13,9 @@
 				<span>签</span>
 			</view> -->
 		</view>
-		<view v-else :style="{height:height}" class="else-contain" v-if="Object.keys(this.imgUrlData).length">
-			<image :src="imgUrlData.pic" mode="aspectFit" class="de-qian"></image>
+		<view v-if="isShakeImg" :style="{height:height}" class="else-contain">
+			<image :src="imgUrlData.pic" mode="aspectFit" @load="imgload" class="de-qian"></image>
+			<!-- <text>{{isShakeImg}}</text> -->
 			<!-- 2.2字不要了 -->
 <!-- 			<view class="qian_text" v-if="!!Object.keys(imgUrlData).length">
 				<text class="text_main">{{imgUrlData.content}}</text>
@@ -62,17 +63,22 @@
 		
 		onLoad() {
 				this.num = this.$store.state.num			
-				
+				console.log('-----')
 				// 监听摇一摇事件
 				uni.onAccelerometerChange(this.starshake);
 		},
 		onShow() {
+			
 			if(!this.$store.state.audioCtx.paused){
+				this.$store.state.audioCtx.pause()
+			}
+			if(!this.isShakeImg){
 				this.$store.state.audioCtx.pause()
 			}
 			if(this.$store.state.isPlayApp && this.$store.state.bgAudio.paused && this.isShakeImg){
 				this.$store.state.bgAudio.play()
 			}
+			
 		},
 		computed:{
 			height(){
@@ -84,12 +90,18 @@
 			// 发送请求
 			getDetailData(num){
 				getDetailData(num).then(res => {
-					this.isShakeImg = true
+					
 					this.imgUrlData = res.data.data
 					this.$store.commit('playApp',{
 						url:this.imgUrlData.yyurl
 					})
+					this.$store.state.isPlayApp = true
 				})
+			},
+			
+			// 监听摇一摇事件
+			imgload(){
+				this.isShakeImg = true
 			},
 			
 			/**
@@ -116,6 +128,7 @@
 						10000;
 					//如果计算出来的速度超过了阈值，那么就算作用户成功摇一摇
 					if (speed > this.global.shakeSpeed) {
+						this.isShakeImg = true
 						uni.stopAccelerometer()
 						this.$store.commit('play',{
 							url:this.yaoSrc,
@@ -129,7 +142,7 @@
 					this.global.lastZ = z;
 				}
 			}
-		},
+		}
 	}
 </script>
 
